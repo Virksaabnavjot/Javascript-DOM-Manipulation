@@ -1,0 +1,38 @@
+<!--
+Author: Navjot Virk
+Website: mrvirk.com/javascript/
+Purpose: Programmatically change page title, create a div element and apply css styles.
+-->
+<html>
+<head>
+<title></title>
+</head>
+
+<body>
+  <p>Programmatically change page title, create a div element and apply css styles.</p>
+</body>
+</html>
+
+<script>
+var body = document.querySelector('body');
+
+(function createDiv(){
+  var div = document.createElement('div');
+  div.innerHTML = 'Amazing work my Lad !';
+  body.appendChild(div);
+})();
+
+(function createDivAndApplyStyles(){
+  var div = document.createElement('div');
+  div.innerHTML = '300x600';
+  div.style = "width:300px; height:600px; background-color:blue; color:white; text-align:center; display:flex; align-items: center; justify-content:center;";
+  body.appendChild(div);
+})();
+
+(function changeTitle(){
+  var title = document.querySelector('title');
+  title.innerHTML = "Experimental Title";
+})();
+
+
+</script>
