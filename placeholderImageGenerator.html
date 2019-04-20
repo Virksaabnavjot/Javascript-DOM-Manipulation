@@ -1,0 +1,74 @@
+<!--
+Author: Navjot Virk
+Website: mrvirk.com/javascript/
+Purpose: Programmatically Generate placeholder image using Javascript.
+-->
+<html>
+<head>
+<title></title>
+</head>
+
+<body>
+  <p>Programmatically Generate placeholder image using Javascript.</p>
+</body>
+</html>
+
+<script>
+(function createInputFieldAndSubmitButton(){
+  var input = document.createElement('input');
+  input.id = 'inputBox';
+  input.value = "970x250";
+  document.body.appendChild(input);
+  var button = document.createElement('button');
+  button.innerHTML = "Create Placeholder";
+  button.type = "button";
+  document.body.appendChild(button);
+  button.onclick = function printValues(){
+    var size = document.getElementById('inputBox').value.toString().toLowerCase();
+    try{
+      var measurements = size.split("x");
+      if(measurements.length == 2){
+        var width = measurements[0];
+    		var height = measurements[1];
+        changeDivSize(width,height);
+      }else{
+        handleInvalidInput(970,250);
+      }
+    }catch(err){
+    handleInvalidInput(970,250);
+    }
+  };
+  createDivAndApplyStyles(970,250);
+})();
+
+function createDivAndApplyStyles(width, height){
+  var div = document.createElement('div');
+  div.id = 'placeholder';
+  div.innerHTML = width+"x"+height;
+  div.style = "background-color:blue; color:white; text-align:center; display:flex; align-items: center; justify-content:center;";
+  document.body.appendChild(div);
+  div.style.width = width;
+  div.style.height = height;
+}
+
+function changeDivSize(width, height){
+  var div = document.getElementById('placeholder');
+  div.innerHTML = width+"x"+height;
+  div.style.width = width;
+  div.style.height = height;
+}
+
+function handleInvalidInput(){
+  var div = document.getElementById('placeholder');
+  div.innerHTML = "Invalid Input. Please enter width x height, example: 970x250";
+  div.style.width = width;
+  div.style.height = height;
+}
+
+function colorPicker(){
+  var input = document.createElement('input');
+  input.type = "color";
+  input.id = 'colorPicker';
+}
+
+</script>
