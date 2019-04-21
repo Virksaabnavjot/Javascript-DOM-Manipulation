@@ -18,6 +18,7 @@ Purpose: Programmatically Generate placeholder image using Javascript.
 </html>
 
 <script>
+
   (function createInputFieldAndSubmitButton() {
     var input = document.createElement('input');
     input.id = 'inputBox';
@@ -35,6 +36,7 @@ Purpose: Programmatically Generate placeholder image using Javascript.
           var width = measurements[0];
           var height = measurements[1];
           changeDivSize(width, height);
+
         } else {
           handleInvalidInput(970, 250);
         }
@@ -44,9 +46,8 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     };
 
     colorPicker();
-
     createDivAndApplyStyles(970, 250);
-    saveDivAsAnImage();
+
   })();
 
   function createDivAndApplyStyles(width, height) {
@@ -57,6 +58,7 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     document.body.appendChild(div);
     div.style.width = width;
     div.style.height = height;
+      createDownloadLink();
   }
 
   function changeDivSize(width, height) {
@@ -64,6 +66,8 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     div.innerHTML = width + "x" + height;
     div.style.width = width;
     div.style.height = height;
+
+
   }
 
   function handleInvalidInput(width, height) {
@@ -80,21 +84,29 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     colorPicker.id = 'colorPicker';
     document.body.appendChild(colorPicker);
     colorPicker.addEventListener("change", watchColorPicker, false);
+
   }
 
   function watchColorPicker(event) {
     var div = document.getElementById('placeholder');
     div.style.backgroundColor = event.target.value;
+    saveDivAsAnImage();
   }
 
-function saveDivAsAnImage(){
-  var div = document.getElementById('placeholder');
-  var getCanvas;
+function createDownloadLink(){
   var link = document.createElement('a');
   link.id = "download";
   link.href = "#";
   link.innerHTML = "Download Image";
   document.body.appendChild(link);
+  saveDivAsAnImage();
+}
+
+function saveDivAsAnImage(){
+  var div = document.getElementById('placeholder');
+
+  var getCanvas;
+  var link = document.getElementById('download');
   link.onclick = function downloadImage(){
     html2canvas(div, {
     onrendered: function (canvas) {
