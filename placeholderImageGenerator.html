@@ -38,7 +38,12 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     handleInvalidInput(970,250);
     }
   };
+
+colorPicker();
   createDivAndApplyStyles(970,250);
+  downloadDivAsAnImage();
+
+
 })();
 
 function createDivAndApplyStyles(width, height){
@@ -66,9 +71,30 @@ function handleInvalidInput(){
 }
 
 function colorPicker(){
-  var input = document.createElement('input');
-  input.type = "color";
-  input.id = 'colorPicker';
+  var colorPicker = document.createElement('input');
+  colorPicker.type = "color";
+  colorPicker.value = "#ff0000";
+  colorPicker.id = 'colorPicker';
+  document.body.appendChild(colorPicker);
+  colorPicker.addEventListener("change", watchColorPicker, false);
+
 }
 
+function watchColorPicker(event) {
+  var div = document.getElementById('placeholder');
+  div.style.backgroundColor = event.target.value;
+}
+
+function downloadDivAsAnImage(){
+  var button = document.createElement('button');
+  button.innerHTML = "Download";
+  button.type = "button";
+  document.body.appendChild(button);
+  button.onclick = function printValues(){
+		//var download = document.getElementById("download");
+		var image = document.getElementById('placeholder').toDataURL("image/png").replace("image/png", "image/octet-stream");
+			  button.setAttribute("href", image);
+      }
+			  //download.setAttribute("download","archive.png");
+	}
 </script>
