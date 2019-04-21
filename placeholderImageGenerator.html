@@ -7,7 +7,6 @@ Purpose: Programmatically Generate placeholder image using Javascript.
 
 <head>
   <title></title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
 </head>
 
@@ -18,7 +17,6 @@ Purpose: Programmatically Generate placeholder image using Javascript.
 </html>
 
 <script>
-
   (function createInputFieldAndSubmitButton() {
     var input = document.createElement('input');
     input.id = 'inputBox';
@@ -58,7 +56,7 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     document.body.appendChild(div);
     div.style.width = width;
     div.style.height = height;
-      createDownloadLink();
+    createDownloadLink();
   }
 
   function changeDivSize(width, height) {
@@ -66,8 +64,8 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     div.innerHTML = width + "x" + height;
     div.style.width = width;
     div.style.height = height;
-
-
+    console.log("I am running from - changeDivSize");
+    saveDivAsAnImage(div);
   }
 
   function handleInvalidInput(width, height) {
@@ -90,34 +88,29 @@ Purpose: Programmatically Generate placeholder image using Javascript.
   function watchColorPicker(event) {
     var div = document.getElementById('placeholder');
     div.style.backgroundColor = event.target.value;
-    saveDivAsAnImage();
   }
 
-function createDownloadLink(){
-  var link = document.createElement('a');
-  link.id = "download";
-  link.href = "#";
-  link.innerHTML = "Download Image";
-  document.body.appendChild(link);
-  saveDivAsAnImage();
-}
+  function createDownloadLink() {
+    var link = document.createElement('a');
+    link.id = "download";
+    link.href = "#";
+    link.innerHTML = "Download Image";
+    document.body.appendChild(link);
+    //saveDivAsAnImage();
+  }
 
-function saveDivAsAnImage(){
-  var div = document.getElementById('placeholder');
-
-  var getCanvas;
-  var link = document.getElementById('download');
-  link.onclick = function downloadImage(){
-    html2canvas(div, {
-    onrendered: function (canvas) {
-      document.body.appendChild(canvas).style.visibility = "hidden";
-           getCanvas = canvas;
-
-           var imgageData = getCanvas.toDataURL("image/png");
-           var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-           link.href = newData;
+  function saveDivAsAnImage(div) {
+    //var div = document.getElementById('placeholder');
+    var link = document.getElementById('download');
+    link.onclick = function downloadImage() {
+      html2canvas(div, {
+        onrendered: function(canvas) {
+          document.body.appendChild(canvas).style.visibility = "hidden";
+          var imgageData = canvas.toDataURL("image/png");
+          var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+          link.href = newData;
         }
-    });
-  };
-}
+      });
+    };
+  }
 </script>
