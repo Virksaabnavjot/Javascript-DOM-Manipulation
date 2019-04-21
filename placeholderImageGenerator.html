@@ -7,6 +7,8 @@ Purpose: Programmatically Generate placeholder image using Javascript.
 
 <head>
   <title></title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
 </head>
 
 <body>
@@ -42,7 +44,9 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     };
 
     colorPicker();
+
     createDivAndApplyStyles(970, 250);
+    saveDivAsAnImage();
   })();
 
   function createDivAndApplyStyles(width, height) {
@@ -82,4 +86,26 @@ Purpose: Programmatically Generate placeholder image using Javascript.
     var div = document.getElementById('placeholder');
     div.style.backgroundColor = event.target.value;
   }
+
+function saveDivAsAnImage(){
+  var div = document.getElementById('placeholder');
+  var getCanvas;
+  var link = document.createElement('a');
+  link.id = "download";
+  link.href = "#";
+  link.innerHTML = "Download Image";
+  document.body.appendChild(link);
+  link.onclick = function downloadImage(){
+    html2canvas(div, {
+    onrendered: function (canvas) {
+      document.body.appendChild(canvas).style.visibility = "hidden";
+           getCanvas = canvas;
+
+           var imgageData = getCanvas.toDataURL("image/png");
+           var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+           link.href = newData;
+        }
+    });
+  };
+}
 </script>
